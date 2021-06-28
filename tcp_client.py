@@ -1,6 +1,7 @@
 import socket
 from statistics import mean, stdev
-from time import time
+from time import sleep, time
+
 
 HOST = "127.0.0.1"
 PORT = 12345
@@ -14,13 +15,14 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
     for i in range(10):
         start = time()
 
-        client.sendall(b"Hello world")
+        client.send(b"Hello world")
         data = client.recv(1024)
 
         end = time()
         diff = (end - start) * 1000
         response_times.append(diff)
         print("Time: %.3f m/s" % diff)
+        sleep(1)
 
     print('\n')
     print("Tempo médio: %.3f m/s" % mean(response_times))
