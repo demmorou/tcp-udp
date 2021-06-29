@@ -2,7 +2,7 @@ import socket # importacao da lib socket para trabalhar com web sockets
 from statistics import mean, stdev # importacao das libs mean e stdev para calcular a media e o desvio padrao
 from time import sleep, time # importacao da lib sleep para dar um tempo ate a proxima instrucao e da lib time para pegar o timestamp exato
 import os # importacao da lib os para tratar variáveis de ambiente
- 
+
 
 def get_env():
     '''
@@ -25,7 +25,7 @@ HOST, PORT = get_env() # obtem host e porta onde está executando o servidor
 # abre uma conexao com o web socket utilizando o protocolo TCP
 # com a conexao aberta realiza algumas acoes
 with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
-    client.connect((HOST, PORT)) # conecta-se ao servidor
+    client.connect((HOST, int(PORT))) # conecta-se ao servidor
 
     response_times = [] # cria um array vazio para armazenar informacoes posteriormente
 
@@ -33,9 +33,9 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
     for i in range(10):
         start = time() # pega o momento onde a requisicao será feita
 
-        client.send(b"Hello world") # envia dados para o servidor
+        client.send(b"Hi, Server. I'm a Client") # envia dados para o servidor
         data = client.recv(1024) # recebe as informacoes do servidor
-
+        print(f"From server: {data.decode()}") # imprime na tela dados vindos do servidor
         end = time() # pega o momento onde a requisicao se encerra
 
         diff = (end - start) * 1000 # pega a diferenca do fim e inicio da requisicao enviada em ms

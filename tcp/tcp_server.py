@@ -37,13 +37,13 @@ def handle_client_connection(client: socket.socket):
 
     while True: # mantem ele ativo enquanto o client estiver mandando algo
         data = client.recv(1024) # recebe os dados enviados pelo client
-        print(f"Received data: {data}") # imprime os dados enviados
+        print(f"Received data: {data.decode()}") # imprime os dados enviados
 
         # caso nao tenha dados, informa-se que a conexao foi encerrada
         if not data:
             print(f'\nClosed connection with {addr[0]}:{addr[1]}')
             break
-        client.send(data) # envia os dados de volta ao client
+        client.send(b"Hi, Client. I'm a Server") # envia os dados de volta ao client
 
 
 # Mantem essa execucao e permite que o server fique ouvindo a rede
