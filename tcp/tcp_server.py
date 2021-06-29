@@ -23,8 +23,6 @@ HOST, PORT = get_env() # obtem host e porta onde irá executar o servidor
 
 
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM) # cria uma instancia do servidor com SOCK_STREAM para utilizar protocolo TCP
-
-
 server.bind((HOST, PORT)) # associa o host e porta ao server criado
 server.listen() # faz com que o server esteja ouvindo a rede
 print(f'Listening on {HOST}:{PORT}') # mostra informacao de host e porta onde o server está executando

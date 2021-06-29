@@ -6,7 +6,7 @@ import os # importacao da lib os para tratar variáveis de ambiente
 
 def get_env():
     '''
-    Obtem as variaveis de host e port onde o servidor ira executar
+    Obtem as variaveis de host e port onde o servidor está executando
 
     return: Tupla com host e porta
     '''
@@ -20,7 +20,7 @@ def get_env():
     return ENV_HOST, ENV_PORT # caso exista, retorna os valores encontrados
 
 
-HOST, PORT = get_env() # obtem host e porta onde irá executar o servidor
+HOST, PORT = get_env() # obtem host e porta onde está executando o servidor
 
 # abre uma conexao com o web socket utilizando o protocolo TCP
 # com a conexao aberta realiza algumas acoes
