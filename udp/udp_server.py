@@ -30,6 +30,6 @@ print(f'Listening on {HOST}:{PORT}') # mostra informacao de host e porta onde o 
 while True:
     message, addr = server.recvfrom(1024) # recebe as informacoes que chegam dos clients
 
-    print(f'Message from: {addr}') # imprime na tela as informacoes recebidas
+    print(f'Received data: {message.decode()}') # imprime na tela as informacoes recebidas
 
-    server.sendto(message, addr) # envia de volta para o mesmo client
+    server.sendto(b"Hi, Client. Ok!", addr) # envia de volta para o mesmo client

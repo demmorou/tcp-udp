@@ -32,8 +32,10 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as client:
     for i in range(10):
         start = time() # pega o momento onde a requisicao será feita
 
-        client.sendto("Hello World".encode(), (HOST, PORT)) # envia dados para o servidor especificando host e a porta
-        
+        client.sendto("Hi, Server. I'm an UDP Client.".encode(), (HOST, PORT)) # envia dados para o servidor especificando host e a porta
+        message, addr = client.recvfrom(1024)
+
+        print(f"From server: {message.decode()}")
         # aqui ele deve receber uma mensagem do servidor tipo um ACK
 
         end = time() # pega o momento onde a requisicao se encerra
