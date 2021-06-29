@@ -13,7 +13,7 @@ Para iniciar o container que será responsável por executar o servidor, execute
 ```console
 sd@sd:~$ cd tcp/
 sd@sd:~$ docker build -t tcp-server -f TCPServer.Dockerfile .
-sd@sd:~$ docker run -d --name tcp-server -p 12345:12345 tcp-server:latest
+sd@sd:~$ docker run -d -p 12345:12345 tcp-server:latest
 ```
 
 * A opção `-d` fará com que o container seja executado em modo `detached`.
@@ -34,7 +34,7 @@ Para iniciar o container que será responsável por executar o servidor, execute
 ```console
 sd@sd:~$ cd tcp/
 sd@sd:~$ docker build -t tcp-client -f TCPClient.Dockerfile .
-sd@sd:~$ docker run --name tcp-client tcp-client:latest
+sd@sd:~$ docker run tcp-client:latest
 ```
 
 * Aqui não tivemos as opção de mapeamento de porta porque o `client` irá apenas conectar-se ao nosso server executado anteriormente, não iŕa expôr nenhum recurso. E pôr não expôr nenhum recurso, não há nenhuma porta sendo exposta por esse container.
