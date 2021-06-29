@@ -6,7 +6,7 @@ import os
 
 def get_env():
     ENV_HOST = os.environ.get("HOST_TCP_SERVER")
-    ENV_PORT = int(os.environ.get("PORT_TCP_SERVER"))
+    ENV_PORT = os.environ.get("PORT_TCP_SERVER")
 
     if ENV_HOST is None or ENV_PORT is None:
         return "127.0.0.1", 12345
