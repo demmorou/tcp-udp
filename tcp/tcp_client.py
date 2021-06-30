@@ -1,6 +1,6 @@
 import socket # importacao da lib socket para trabalhar com web sockets
 from statistics import mean, stdev # importacao das libs mean e stdev para calcular a media e o desvio padrao
-from time import sleep, time # importacao da lib sleep para dar um tempo ate a proxima instrucao e da lib time para pegar o timestamp exato
+from time import time # importacao da lib sleep para dar um tempo ate a proxima instrucao e da lib time para pegar o timestamp exato
 import os # importacao da lib os para tratar variáveis de ambiente
 
 
@@ -41,7 +41,6 @@ with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as client:
         diff = (end - start) * 1000 # pega a diferenca do fim e inicio da requisicao enviada em ms
         response_times.append(diff) # adiciona ao array
         print("Time: %.3f m/s" % diff) # imprime na tela o tempo gasto durante a requisicao
-        sleep(1) # espera 1 segundo até enviar novamente outra requisicao
 
     print('\n') # imprime uma quebra de linha
     print("Tempo médio: %.3f m/s" % mean(response_times)) # imprime o valor da media de tempo
