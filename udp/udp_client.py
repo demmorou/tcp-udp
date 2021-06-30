@@ -12,16 +12,17 @@ def get_env():
     '''
 
     ENV_HOST = os.environ.get("HOST_UDP_SERVER") # Obtém o host da variável HOST_UDP_SERVER
-    ENV_PORT = int(os.environ.get("PORT_UDP_SERVER")) # Obtém a porta da variável PORT_UDP_SERVER
+    ENV_PORT = os.environ.get("PORT_UDP_SERVER") # Obtém a porta da variável PORT_UDP_SERVER
 
     if ENV_HOST is None or ENV_PORT is None: # Caso nao tenha variaveis de ambiente definidas
         return "127.0.0.1", 54321 # retorna host e porta default
 
     return ENV_HOST, ENV_PORT # caso exista, retorna os valores encontrados
-    
+
 
 HOST, PORT = get_env() # obtem host e porta onde está executando o servidor
 
+print(HOST, PORT)
 
 # abre uma conexao com o web socket utilizando o protocolo UDP
 # com a conexao aberta realiza algumas acoes
@@ -32,7 +33,7 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as client:
     for i in range(10):
         start = time() # pega o momento onde a requisicao será feita
 
-        client.sendto("Hi, Server. I'm an UDP Client.".encode(), (HOST, PORT)) # envia dados para o servidor especificando host e a porta
+        client.sendto("Hi, Server. I'm an UDP Client.".encode(), (HOST, int(PORT))) # envia dados para o servidor especificando host e a porta
         message, addr = client.recvfrom(1024)
 
         print(f"From server: {message.decode()}")
@@ -43,8 +44,8 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as client:
         diff = (end - start) * 1000 # pega a diferenca do fim e inicio da requisicao enviada em ms
         response_times.append(diff) # adiciona ao array
         print("Time: %.3f m/s" % diff) # imprime na tela o tempo gasto durante a requisicao
-        sleep(1) # espera 1 segundo até enviar novamente outra requisicao
-    
+        # sleep(1) # espera 1 segundo até enviar novamente outra requisicao
+
     print('\n') # imprime uma quebra de linha
     print("Tempo médio: %.3f m/s" % mean(response_times)) # imprime o valor da media de tempo
     print("Desvio padrão: %.3f " % stdev(response_times)) # imprime o valor do desvio padrao

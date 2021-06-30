@@ -10,19 +10,19 @@ def get_env():
     '''
 
     ENV_HOST = os.environ.get("HOST_UDP_SERVER") # Obtém o host da variável HOST_UDP_SERVER
-    ENV_PORT = int(os.environ.get("PORT_UDP_SERVER")) # Obtém a porta da variável PORT_UDP_SERVER
+    ENV_PORT = os.environ.get("PORT_UDP_SERVER") # Obtém a porta da variável PORT_UDP_SERVER
 
     if ENV_HOST is None or ENV_PORT is None: # Caso nao tenha variaveis de ambiente definidas
         return "127.0.0.1", 54321 # retorna host e porta padrões
 
     return ENV_HOST, ENV_PORT # caso exista, retorna os valores encontrados
-    
+
 
 HOST, PORT = get_env() # obtem host e porta onde irá executar o servidor
 
 
 server = socket.socket(socket.AF_INET, socket.SOCK_DGRAM) # cria uma instancia do servidor com SOCK_STREAM para utilizar protocolo UDP
-server.bind((HOST, PORT)) # associa o host e porta ao server criado
+server.bind((HOST, int(PORT))) # associa o host e porta ao server criado
 print(f'Listening on {HOST}:{PORT}') # mostra informacao de host e porta onde o server está executando
 
 
@@ -30,6 +30,6 @@ print(f'Listening on {HOST}:{PORT}') # mostra informacao de host e porta onde o 
 while True:
     message, addr = server.recvfrom(1024) # recebe as informacoes que chegam dos clients
 
-    print(f'Received data: {message.decode()}') # imprime na tela as informacoes recebidas
+    print(f'Message: {message.decode()} -- From: {addr[0]}:{addr[1]}') # imprime na tela as informacoes recebidas
 
-    server.sendto(b"Hi, Client. Ok!", addr) # envia de volta para o mesmo client
+    server.sendto("Hi, Client. Ok!".encode(), addr) # envia de volta para o mesmo client
