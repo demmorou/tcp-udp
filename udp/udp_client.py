@@ -1,5 +1,5 @@
 import socket # importacao da lib socket para trabalhar com web sockets
-from time import time, sleep  # importacao da lib sleep para dar um tempo ate a proxima instrucao e da lib time para pegar o timestamp exato
+from time import time  # importacao da lib sleep para dar um tempo ate a proxima instrucao e da lib time para pegar o timestamp exato
 from statistics import mean, stdev # importacao das libs mean e stdev para calcular a media e o desvio padrao
 import os # importacao da lib os para tratar variáveis de ambiente
 
@@ -34,17 +34,15 @@ with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as client:
         start = time() # pega o momento onde a requisicao será feita
 
         client.sendto("Hi, Server. I'm an UDP Client.".encode(), (HOST, int(PORT))) # envia dados para o servidor especificando host e a porta
-        message, addr = client.recvfrom(1024)
+        message, addr = client.recvfrom(1024) # recebe dados do server
 
-        print(f"From server: {message.decode()}")
-        # aqui ele deve receber uma mensagem do servidor tipo um ACK
+        print(f"From server: {message.decode()}") # imprime mensagem vinda do server
 
         end = time() # pega o momento onde a requisicao se encerra
 
         diff = (end - start) * 1000 # pega a diferenca do fim e inicio da requisicao enviada em ms
         response_times.append(diff) # adiciona ao array
         print("Time: %.3f m/s" % diff) # imprime na tela o tempo gasto durante a requisicao
-        # sleep(1) # espera 1 segundo até enviar novamente outra requisicao
 
     print('\n') # imprime uma quebra de linha
     print("Tempo médio: %.3f m/s" % mean(response_times)) # imprime o valor da media de tempo
